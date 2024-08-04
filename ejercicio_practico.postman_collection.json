@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n     \"nombre\": \"Juan Osorio\",\r\n     \"direccion\": \"13 junio y Equinoccial\",\r\n     \"telefono\": \"098874587\",\r\n     \"contrasena\":\"1245\",\r\n     \"estado\":true\r\n}",
+							"raw": "{\r\n     \"nombre\": \"Jose Lema\",\r\n     \"direccion\": \"Otavalo sn y principal \",\r\n     \"telefono\": \"098254785\",\r\n     \"contrasena\":\"1234\",\r\n     \"estado\":true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -249,7 +249,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"numeroCuenta\":496825    ,\r\n\t\"fecha\":\"8/2/2022\",\r\n\t\"tipoMovimiento\": \"Retiro\",\r\n\t\"valor\": -540\r\n}",
+							"raw": "{\r\n\t\"numeroCuenta\":585545    ,\r\n\t\"fecha\":\"8/2/2022\",\r\n\t\"tipoMovimiento\": \"Retiro\",\r\n\t\"valor\": -10\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -275,6 +275,25 @@
 					"request": {
 						"method": "DELETE",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "buscarTodosMovimientos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/movimientos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"movimientos"
+							]
+						}
 					},
 					"response": []
 				}
