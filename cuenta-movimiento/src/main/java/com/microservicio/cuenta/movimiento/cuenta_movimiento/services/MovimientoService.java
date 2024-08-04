@@ -19,4 +19,6 @@ public interface MovimientoService {
     public Movimiento guardarMovimiento(MovimientoVo movimientoVo) throws ParseException;
 
     Movimiento borrarMovimientoPorId(MovimientoVo movimiento) throws ParseException;
+
+    public void enviarMensaje(String mensaje) ;
 }

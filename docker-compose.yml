@@ -6,12 +6,18 @@ services:
     container_name: cliente-persona
     ports:
       - "8080:8080"
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
   
   cuenta-movimientos:
     image: cuenta-movimientos-microservice
     container_name: cuenta-movimientos
     ports:
       - "8081:8081" 
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
 
   db:
     image: mysql:8.0
@@ -25,3 +31,10 @@ services:
       - "3307:3307"
     volumes:
       - ./mysql:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"

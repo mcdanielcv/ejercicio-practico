@@ -3,11 +3,13 @@ package com.microservicio.cliente.persona.cliente_persona.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.microservicio.cliente.persona.cliente_persona.configuration.RabbitConfig;
 import com.microservicio.cliente.persona.cliente_persona.entities.Cliente;
 import com.microservicio.cliente.persona.cliente_persona.repositories.ClienteRepository;
 
@@ -71,5 +73,11 @@ public class ClienteServiceImp implements ClienteService {
     @Transactional(readOnly = true)
     public List<Long> obtenerTodosIdClientes(){
         return clienteRepository.findAllIdClientes();
+    }
+
+    @RabbitListener(queues = RabbitConfig.MOVIMIENTO_A_CLIENTE_QUEUE)
+    public void recibirMensaje(String mensaje) {
+        System.out.println("Mensaje recibido desde cuenta-movimiento: " + mensaje);
+        // Lógica para procesar el mensaje
     }
 }

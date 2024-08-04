@@ -6,11 +6,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.microservicio.cuenta.movimiento.cuenta_movimiento.configuracion.RabbitConfig;
 import com.microservicio.cuenta.movimiento.cuenta_movimiento.entities.Cuenta;
 import com.microservicio.cuenta.movimiento.cuenta_movimiento.entities.Movimiento;
 import com.microservicio.cuenta.movimiento.cuenta_movimiento.entities.MovimientoId;
@@ -25,6 +27,9 @@ public class MovimientoServiceImp implements MovimientoService {
 
     @Autowired
     private CuentaRepository cuentaRepository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Transactional(readOnly = true)
     public List<Movimiento> obtenerTodosMovimientos() {
@@ -59,6 +64,7 @@ public class MovimientoServiceImp implements MovimientoService {
                     Movimiento movimiento = new Movimiento(id, cuentaDb.getSaldoDisponible());
                     Movimiento savedMovimiento = movimientoRepository.save(movimiento);
                     cuentaRepository.save(cuentaDb);
+                    enviarMensaje(formato.format(savedMovimiento.getId().getFecha()));
                     return savedMovimiento;
                 }
             } else {
@@ -88,5 +94,9 @@ public class MovimientoServiceImp implements MovimientoService {
         } else {
             throw new RuntimeException("No existe el movimiento a eliminar");
         }
+    }
+
+    public void enviarMensaje(String mensaje) {
+        rabbitTemplate.convertAndSend(RabbitConfig.MOVIMIENTO_A_CLIENTE_QUEUE, mensaje);
     }
 }
