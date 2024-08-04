@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sasa
+      MYSQL_DATABASE: microservicios_db
+      MYSQL_PASSWORD: sasa
+    ports:
+      - "3307:3307"
+    volumes:
+      - ./mysql:/var/lib/mysql
+
