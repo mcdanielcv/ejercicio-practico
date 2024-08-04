@@ -4,25 +4,19 @@ services:
   cliente-persona:
     image: cliente-persona-microservice
     container_name: cliente-persona
-    build:
-      dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    networks:
-      - microservicios-network
   
   cuenta-movimientos:
     image: cuenta-movimientos-microservice
     container_name: cuenta-movimientos
-    build:
-      dockerfile: Dockerfile
     ports:
       - "8081:8081" 
-    networks:
-      - microservicios-network  
+
   db:
     image: mysql:8.0
     restart: always
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: sasa
       MYSQL_DATABASE: microservicios_db
@@ -31,7 +25,3 @@ services:
       - "3307:3307"
     volumes:
       - ./mysql:/var/lib/mysql
-
-networks:
-  microservicios-network:
-    driver: bridge
