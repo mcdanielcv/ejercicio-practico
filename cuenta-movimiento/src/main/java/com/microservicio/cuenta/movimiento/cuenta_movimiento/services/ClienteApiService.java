@@ -13,7 +13,7 @@ public class ClienteApiService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String CLIENTE_PERSONA_URL = "http://localhost:8080";
+    private static final String CLIENTE_PERSONA_URL = "http://cliente-persona:8080";
 
     public String obtenerNombreCliente(Long clienteId) {
         String url = CLIENTE_PERSONA_URL + "/clientes/cliente/" + clienteId;

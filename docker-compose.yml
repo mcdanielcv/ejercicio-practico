@@ -6,18 +6,17 @@ services:
     container_name: cliente-persona
     ports:
       - "8080:8080"
-    environment:
-      SPRING_RABBITMQ_HOST: rabbitmq
-      SPRING_RABBITMQ_PORT: 5672
+    depends_on:
+      - rabbitmq
+
   
   cuenta-movimientos:
     image: cuenta-movimientos-microservice
     container_name: cuenta-movimientos
     ports:
-      - "8081:8081" 
-    environment:
-      SPRING_RABBITMQ_HOST: rabbitmq
-      SPRING_RABBITMQ_PORT: 5672
+      - "8081:8081"
+    depends_on:
+      - rabbitmq
 
   db:
     image: mysql:8.0

@@ -52,7 +52,7 @@ public class MovimientoController {
             
             return ResponseEntity.status(HttpStatus.CREATED).body(
                 new ResponseVo(true,"Movimiento registrado", movimientoService.guardarMovimiento(movimiento))); 
-        } catch (RuntimeException | ParseException e) {
+        } catch (RuntimeException |   ParseException e) {
             System.out.println("error-<"+e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseVo(false,e.getMessage())); 
         }
